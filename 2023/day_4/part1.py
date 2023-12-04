@@ -23,7 +23,7 @@ for card in cards:
             if points == 0:
                 points = 1
             else:
-                points = points * 2
+                points *= 2
     sum += points
 
 print(sum)

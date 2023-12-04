@@ -4,8 +4,8 @@ with open("input.txt") as f:
 
 line_count = len(lines)
 col_count = len(lines[0])
-grid = [["" for c in range(col_count)] for l in range(line_count)]
-parts = [[(-1, -1) for c in range(col_count)] for l in range(line_count)]  # uid, value
+grid = [["" for c in range(col_count)] for _ in range(line_count)]
+parts = [[(-1, -1) for c in range(col_count)] for _ in range(line_count)]  # uid, value
 for line_idx, line in enumerate(lines):
     for char_idx, char in enumerate(line):
         grid[line_idx][char_idx] = char
