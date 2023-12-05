@@ -2,15 +2,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 import sys
 
+
 @dataclass
 class MapKind:
     source_category: str
     target_category: str
-    maps: list[Map]
+    maps: list[MapRange]
 
 
 @dataclass
-class Map:
+class MapRange:
     kind: MapKind
     destination_start: int
     source_start: int
@@ -18,11 +19,11 @@ class Map:
 
 
 kinds: list[MapKind] = list()
-maps: list[Map] = list()
+maps: list[MapRange] = list()
 
 with open("input.txt") as f:
-    seeds: list[int] = f.readline().split("seeds:")[1].strip().split(" ")
-    seeds= list(map(lambda x: int(x.strip()), seeds))
+    seeds_str: list[str] = f.readline().split("seeds:")[1].strip().split(" ")
+    seeds: list[int] = list(map(lambda x: int(x.strip()), seeds_str))
 
     for line in f:
         if line == "\n":
@@ -31,13 +32,15 @@ with open("input.txt") as f:
         kind_split = line.split("map")
         if len(kind_split) == 2:
             source_target_split = kind_split[0].split("-to-")
-            current_map_kind = MapKind(source_target_split[0], source_target_split[1], [])
+            current_map_kind = MapKind(
+                source_target_split[0], source_target_split[1], []
+            )
             kinds.append(current_map_kind)
             continue
 
         values = list(map(lambda x: int(x.strip()), line.split(" ")))
         if len(values) == 3:
-            current_map = Map(current_map_kind, values[0], values[1], values[2])
+            current_map = MapRange(current_map_kind, values[0], values[1], values[2])
             maps.append(current_map)
             current_map_kind.maps.append(current_map)
             continue
