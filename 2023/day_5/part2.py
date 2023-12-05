@@ -16,13 +16,25 @@ class Map:
     source_start: int
     range_length: int
 
+@dataclass
+class SeedRange:
+    start: int
+    length: int
+
 
 kinds: list[MapKind] = list()
 maps: list[Map] = list()
+seeds: list[SeedRange] = list()
 
 with open("input.txt") as f:
-    seeds: list[int] = f.readline().split("seeds:")[1].strip().split(" ")
-    seeds= list(map(lambda x: int(x.strip()), seeds))
+    seeds_str: list[int] = f.readline().split("seeds:")[1].strip().split(" ")
+    seeds_int= list(map(lambda x: int(x.strip()), seeds_str))
+
+    for idx, seed in enumerate(seeds_int):
+        if idx%2==1:# odd
+            seeds.append(SeedRange(prev_seed, seed))
+        else:
+            prev_seed=seed
 
     for line in f:
         if line == "\n":
@@ -44,7 +56,8 @@ with open("input.txt") as f:
 
         raise Exception("shouldn't be possible")
 
-
+# for seed in seeds:
+#     print(f"seed {seed.start} {seed.length}")
 # for item in maps:
 # print(f"{item.kind.source_category} {item.kind.target_category} : {item.destination_start} {item.source_start} {item.range_length}")
 
