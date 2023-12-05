@@ -63,9 +63,6 @@ with open("input.txt") as f:
 for kind in kinds:
     kind.maps.sort(key=lambda x: x.source_start)
 
-seed_ranges.sort(key=lambda x: x.start)
-
-
 current_range_list: list[Range] = seed_ranges
 for kind in kinds:  # they are chained in order no need to search name
     new_range_list: list[Range] = []  # reset
