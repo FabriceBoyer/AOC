@@ -77,14 +77,14 @@ for kind in kinds:  # they are chained in order no need to search name
                 if rem_range.start < map_item.source_start:  # start before beginning of map_item
                     non_intersect_length = min(map_item.source_start - rem_range.start, rem_range.length)
                     new_range_list.append(Range(rem_range.start, non_intersect_length))  # iso mapping default
-                    rem_range = Range(rem_range.start+non_intersect_length, rem_range.length - non_intersect_length)
+                    rem_range = Range(rem_range.start + non_intersect_length, rem_range.length - non_intersect_length)
                     continue  # bypass rest of loop
 
                 elif rem_range.start < map_item_source_end:  # start before end of map_item
                     intersect_length = min(map_item_source_end - rem_range.start, rem_range.length)
                     offset = rem_range.start - map_item.source_start  # from map_item_source_start
                     new_range_list.append(Range(map_item.destination_start + offset, intersect_length))
-                    rem_range = Range(rem_range.start+intersect_length, rem_range.length - intersect_length)
+                    rem_range = Range(rem_range.start + intersect_length, rem_range.length - intersect_length)
                     continue
 
                 else:
