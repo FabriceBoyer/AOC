@@ -22,7 +22,7 @@ def getTextNumberEndValue(str) -> int:
     return -1
 
 
-with open("day_1/input.txt") as file:
+with open("input.txt") as file:
     lines = [line.rstrip() for line in file]
 
 sum = 0
