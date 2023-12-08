@@ -38,7 +38,7 @@ def get_value_of_card(card: str) -> int:
     return card_values.index(card)
 
 
-def getKind(hand: str) -> int:
+def get_kind(hand: str) -> int:
     card_count_dict = {}
     for card in card_values:
         card_count_dict[card] = 0
@@ -104,7 +104,7 @@ for hand_str in hands_str:
     hand_split = hand_str.split(" ")
     hand = hand_split[0]
     bid = int(hand_split[1])
-    handbids.append(HandBid(hand, bid, getKind(hand)))
+    handbids.append(HandBid(hand, bid, get_kind(hand)))
     # print(f"{hand} {bid}")
 
 handbids = sorted(handbids, key=cmp_to_key(compare_hands))
