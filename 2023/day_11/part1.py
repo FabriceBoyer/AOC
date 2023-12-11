@@ -20,9 +20,7 @@ for line in data:
         if char == "#":
             empty_line = False
             galaxies.append(Galaxy(x, y))
-    y += 1
-    if empty_line:
-        y += 1  # expansion
+    y += 2 if empty_line else 1  # expansion
 
 sum = 0
 count = len(galaxies)
