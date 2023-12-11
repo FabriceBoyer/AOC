@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import sys
 
 with open("input.txt", encoding="utf-8") as f:
-    data = f.readlines()
+    data = [line.strip() for line in f.readlines()]
 
 
 @dataclass
@@ -16,7 +16,7 @@ y = 0
 galaxies: list[Galaxy] = []
 for line in data:
     empty_line = True
-    for x, char in enumerate(line):
+    for x, char in enumerate(line.strip()):
         if char == "#":
             empty_line = False
             galaxies.append(Galaxy(x, y))
