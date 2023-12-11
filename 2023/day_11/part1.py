@@ -26,13 +26,11 @@ for line in data:
 
 sum = 0
 count = len(galaxies)
-for index1, g1 in enumerate(galaxies):
-    if index1 == count - 2:
-        break
+for i1, g1 in enumerate(galaxies[:-1]):
     shortest_dist = sys.maxsize
-    index2 = index1 + 1
-    for g2 in galaxies[index2:]:
-        dist = abs(g1.x - g2.x) + abs(g1.y - g2.y)
+    i2 = i1 + 1
+    for g2 in galaxies[i2:]:
+        dist = abs(g2.x - g1.x) + abs(g2.y - g1.y)
         shortest_dist = min(dist, shortest_dist)
     sum += shortest_dist
 print(sum)
