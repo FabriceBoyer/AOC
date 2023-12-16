@@ -43,7 +43,7 @@ def get_reflection_line(
     if v_reflect != -1:
         res = ("vertical", v_reflect)
     else:
-        reject_id = reject[1] if reject[0] == "horizontal" else -1
+        reject_id = reject[1] / 100 if reject[0] == "horizontal" else -1
         h_reflect = get_vsymetry_index(get_transpose(_pattern), reject_id)
         if h_reflect != -1:
             res = ("horizontal", 100 * h_reflect)
