@@ -17,6 +17,7 @@ class Node:
 
 min_heat: int = sys.maxsize  # for the nodes having reached target
 min_node: Optional[Node] = None
+best_heatloss_dict: dict[tuple[int, int, int], int] = {}
 
 
 def move_node(old: Node, new_dir: int) -> None:
@@ -28,6 +29,8 @@ def move_node(old: Node, new_dir: int) -> None:
     # straight_counter
     if new_dir == old.direction:
         new.straight_counter += 1
+    else:
+        new.straight_counter = 1
 
     # move y,x
     if new_dir == 0:  # north
@@ -52,6 +55,13 @@ def move_node(old: Node, new_dir: int) -> None:
     # heat check
     heatloss = int(city[new.y, new.x])
     new.total_heatloss += heatloss
+
+    best_for_coord = best_heatloss_dict.get(new_coord, -1)
+    if best_for_coord == -1 or best_for_coord > new.total_heatloss:
+        best_heatloss_dict[new_coord] = new.total_heatloss
+    else:
+        return  # better path exist somewhere else
+
     if new.total_heatloss > min_heat:
         return
 
@@ -61,10 +71,6 @@ def move_node(old: Node, new_dir: int) -> None:
             min_heat = new.total_heatloss
             min_node = new
             print(f"target reached with better total_heatloss of {min_heat}")
-        else:
-            print(
-                f"target reached worse total_heatloss of {new.total_heatloss} vs {min_heat}"
-            )
         return
 
     nodes.append(new)
@@ -100,7 +106,7 @@ def print_node(node_: Optional[Node]):
         print(msg)
 
 
-with open("input2.txt", encoding="utf-8") as f:
+with open("input.txt", encoding="utf-8") as f:
     lines = [line.strip() for line in f.readlines()]
 
 line_count = len(lines)
