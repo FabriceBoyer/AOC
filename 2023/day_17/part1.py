@@ -46,7 +46,7 @@ def move_node(old: Node, new_dir: int) -> None:
     if new.y < 0 or new.y > line_count - 1 or new.x < 0 or new.x > col_count - 1:
         return
 
-    # reexploration check (maybe add dir too?)
+    # re-exploration check (maybe add dir too?)
     new_coord = (new.y, new.x, new.direction)
     if new_coord in new.path:
         return
@@ -106,7 +106,7 @@ def print_node(node_: Optional[Node]):
         print(msg)
 
 
-with open("input.txt", encoding="utf-8") as f:
+with open("input2.txt", encoding="utf-8") as f:
     lines = [line.strip() for line in f.readlines()]
 
 line_count = len(lines)
@@ -119,11 +119,8 @@ for y, line in enumerate(lines):
     for x, char in enumerate(line):
         city[y, x] = int(char)
 
-nodes: list[Node] = []
-# init with top-left to right and bottom
-nodes.append(Node(0, 0, 1, 1, 0, [(0, 0, 1)]))
-nodes.append(Node(0, 0, 2, 1, 0, [(0, 0, 2)]))
-
+# init with top-left to right
+nodes: list[Node] = [Node(0, 0, 1, 1, 0, [(0, 0, 1)])]
 
 while len(nodes) > 0:
     node = nodes.pop()
