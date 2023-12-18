@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Optional
 from shapely.geometry.polygon import Polygon
 
-with open("input2.txt", encoding="utf-8") as f:
+with open("input.txt", encoding="utf-8") as f:
     lines = [line.strip() for line in f.readlines()]
 
 current_x: int = 0
@@ -31,3 +31,4 @@ for line in lines:
 polygon: Polygon = Polygon(coords)
 print(f"Area: {polygon.area}")
 print(f"Perimeter: {polygon.length}")
+print(polygon.length/2.0 + polygon.area + 1)
