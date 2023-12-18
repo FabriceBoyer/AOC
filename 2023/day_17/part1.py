@@ -50,8 +50,8 @@ def move_node(old: Node, new_dir: int) -> None:
 
     # re-exploration check
     new_coord = (new.y, new.x, new.direction, new.straight_counter)
-    if new_coord in new.path:
-        return
+    # if new_coord in new.path:
+    #     return
     new.path.append(new_coord)
 
     # heat check
