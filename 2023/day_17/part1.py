@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 import numpy as np
 import sys
@@ -12,12 +13,12 @@ class Node:
     direction: int  # 0=north, 1=east, 2=south, 3=west
     straight_counter: int  # max 3
     total_heatloss: int
-    path: list[tuple[int, int, int]]
+    path: list[tuple[int, int, int, int]]
 
 
 min_heat: int = sys.maxsize  # for the nodes having reached target
 min_node: Optional[Node] = None
-best_heatloss_dict: dict[tuple[int, int, int], int] = {}
+best_heatloss_dict: dict[tuple[int, int, int, int], int] = {}
 
 
 def move_node(old: Node, new_dir: int) -> None:
@@ -46,8 +47,8 @@ def move_node(old: Node, new_dir: int) -> None:
     if new.y < 0 or new.y > line_count - 1 or new.x < 0 or new.x > col_count - 1:
         return
 
-    # re-exploration check (maybe add dir too?)
-    new_coord = (new.y, new.x, new.direction)
+    # re-exploration check
+    new_coord = (new.y, new.x, new.direction, new.straight_counter)
     if new_coord in new.path:
         return
     new.path.append(new_coord)
@@ -106,7 +107,7 @@ def print_node(node_: Optional[Node]):
         print(msg)
 
 
-with open("input2.txt", encoding="utf-8") as f:
+with open("input.txt", encoding="utf-8") as f:
     lines = [line.strip() for line in f.readlines()]
 
 line_count = len(lines)
@@ -120,8 +121,9 @@ for y, line in enumerate(lines):
         city[y, x] = int(char)
 
 # init with top-left to right
-nodes: list[Node] = [Node(0, 0, 1, 1, 0, [(0, 0, 1)])]
+nodes: list[Node] = [Node(0, 0, 1, 1, 0, [(0, 0, 1, 1)])]
 
+start: datetime = datetime.now()
 while len(nodes) > 0:
     node = nodes.pop()
     if node.straight_counter < 3:
@@ -130,5 +132,6 @@ while len(nodes) > 0:
     move_node(node, (node.direction - 1) % 4)  # left
     move_node(node, (node.direction + 1) % 4)  # right
 
+print(f"time spent: {datetime.now() - start}")
 print_node(min_node)
 print(min_heat)
