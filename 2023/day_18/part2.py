@@ -7,10 +7,14 @@ current_x: int = 0
 current_y: int = 0
 coords: list[tuple[int, int]] = [(current_x, current_y)]
 
+dir_dict: dict[int, str] = {0: "R", 1: "D", 2: "L", 3: "U"}
+
 for line in lines:
     split = line.split(" ")
-    direction: str = split[0]
-    length: int = int(split[1])
+    hexa = split[2][2:-1]  # remove (#)
+    length: int = int(hexa[:5], 16)
+    dir_code = int(hexa[5:])
+    direction: str = dir_dict[dir_code]
 
     if direction == "R":
         current_x += length
