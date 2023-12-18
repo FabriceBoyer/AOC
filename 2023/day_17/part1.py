@@ -22,7 +22,7 @@ best_heatloss_dict: dict[tuple[int, int, int, int], int] = {}
 
 
 def move_node(old: Node, new_dir: int) -> None:
-    global min_heat, min_node
+    global min_heat, min_node, nodes
     new = Node(
         old.y, old.x, new_dir, old.straight_counter, old.total_heatloss, old.path.copy()
     )
@@ -63,7 +63,7 @@ def move_node(old: Node, new_dir: int) -> None:
     else:
         return  # better path exist somewhere else
 
-    if new.total_heatloss > min_heat:
+    if new.total_heatloss >= min_heat:
         return
 
     # target reached check
@@ -75,6 +75,7 @@ def move_node(old: Node, new_dir: int) -> None:
         return
 
     nodes.append(new)
+    nodes.sort(key=lambda x: x.total_heatloss, reverse=True)
 
 
 def print_node(node_: Optional[Node]):
