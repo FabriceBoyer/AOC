@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Optional
 import numpy as np
 import sys
+import bisect
 
 
 @dataclass
@@ -74,8 +75,7 @@ def move_node(old: Node, new_dir: int) -> None:
             print(f"target reached with better total_heatloss of {min_heat}")
         return
 
-    nodes.append(new)
-    nodes.sort(key=lambda x: x.total_heatloss, reverse=True)
+    bisect.insort_left(nodes, new, key=lambda x: -x.total_heatloss)  # reverse
 
 
 def print_node(node_: Optional[Node]):
