@@ -97,9 +97,17 @@ def is_part_accepted(part_: Part) -> bool:
 
 
 total: int = 0
-for part in parts:
-    if is_part_accepted(part):
-        total += sum(part.values)
+current_part: Part = Part([0, 0, 0, 0])
+for x in range(1, 4000):
+    current_part.values[0] = x
+    for m in range(1, 4000):
+        current_part.values[1] = m
+        for a in range(1, 4000):
+            current_part.values[2] = a
+            for s in range(1, 4000):
+                current_part.values[3] = s
+                if is_part_accepted(current_part):
+                    total += sum(current_part.values)
     # print("")
 
 print(total)
