@@ -1,4 +1,3 @@
-# day 2 / part 1
 with open("input.txt", "r", encoding="utf-8") as file:
     intervals = file.read().split(",")
     sum: int = 0
