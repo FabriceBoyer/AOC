@@ -1,6 +1,6 @@
 with open("input.txt", "r", encoding="utf-8") as file:
     intervals = file.read().split(",")
-    sum: int = 0
+    total: int = 0
     for interval in intervals:
         start, end = map(int, interval.split("-"))
         # print(f"{end-start}")
@@ -14,9 +14,9 @@ with open("input.txt", "r", encoding="utf-8") as file:
                 ref: str = id_str[:size]
                 repeated: str = ref * (len(id_str) // size)
                 if id_str == repeated:
-                    invalid_id = True
+                    invalid_id: bool = True
                     print(f"invalid id: {num_id}")
-                    sum += num_id
+                    total += num_id
                     break
 
-    print(f"Sum of invalid: {sum}")
+    print(f"Sum of invalid: {total}")

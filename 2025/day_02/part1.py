@@ -1,6 +1,6 @@
 with open("input.txt", "r", encoding="utf-8") as file:
     intervals = file.read().split(",")
-    sum: int = 0
+    total: int = 0
     for interval in intervals:
         start, end = map(int, interval.split("-"))
         # print(f"{end-start}")
@@ -14,6 +14,6 @@ with open("input.txt", "r", encoding="utf-8") as file:
             second_half: str = id_str[cut:]
             if first_half == second_half:  # invalid
                 print(f"invalid id: {num_id}")
-                sum += num_id
+                total += num_id
 
-    print(f"Sum of invalid: {sum}")
+    print(f"Sum of invalid: {total}")

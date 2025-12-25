@@ -1,4 +1,4 @@
-with open("input.txt", "r", encoding="utf-8") as file:
+with open("input_test.txt", "r", encoding="utf-8") as file:
     lines = [line.rstrip() for line in file]
 
 count: int = 0
